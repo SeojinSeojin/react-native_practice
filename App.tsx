@@ -1,4 +1,5 @@
 import { StyleSheet, TextInput, View } from 'react-native';
+import AudioUploader from './components/AudioUploader';
 import ImageUploader from './components/ImageUploader';
 
 export default function App() {
@@ -6,6 +7,7 @@ export default function App() {
     <View style={styles.container}>
       <TextInput style={styles.input} placeholder='글자 입력' />
       <ImageUploader />
+      <AudioUploader />
     </View>
   );
 }

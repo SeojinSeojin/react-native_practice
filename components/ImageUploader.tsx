@@ -16,7 +16,12 @@ export default function ImageUploader() {
   const uploadImage = async () => {
     if (!image) return;
     const formData = new FormData();
-    formData.append('file', dataURItoBLOB(image));
+    const imageBLOB = dataURItoBLOB(image);
+    const imageFile = new File(
+      [imageBLOB],
+      `${new Date().toLocaleString()}.png`
+    );
+    formData.append('file', imageFile);
     const response = await postFetcher(
       'http://localhost:4444/upload',
       formData,

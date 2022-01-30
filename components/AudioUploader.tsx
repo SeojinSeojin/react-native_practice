@@ -49,8 +49,12 @@ export default function AudioUploader() {
   const uploadRecord = async () => {
     if (!audioURI) return;
     const audioBLOB = await blobURItoBLOB(audioURI);
+    const audioFile = new File(
+      [audioBLOB],
+      `${new Date().toLocaleString()}.webm`
+    );
     const formData = new FormData();
-    formData.append('file', audioBLOB);
+    formData.append('file', audioFile);
     const response = await postFetcher(
       'http://localhost:4444/upload',
       formData,

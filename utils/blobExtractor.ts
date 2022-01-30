@@ -22,3 +22,6 @@ export const dataURItoBLOB = (dataURI: string) => {
   var blob = new Blob([ab], { type: mimeString });
   return blob;
 };
+
+export const blobURItoBLOB = (blobURI: string) =>
+  fetch(blobURI).then((data) => data.blob());

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Audio } from 'expo-av';
 import { StyleSheet, Button, View } from 'react-native';
+import { postFetcher } from '../utils/postFetcher';
+import { blobURItoBLOB } from '../utils/blobExtractor';
 
 export default function AudioUploader() {
   const [recording, setRecording] = useState<Audio.Recording | null>(null);
@@ -44,6 +46,20 @@ export default function AudioUploader() {
     sound.playAsync();
   };
 
+  const uploadRecord = async () => {
+    if (!audioURI) return;
+    const audioBLOB = await blobURItoBLOB(audioURI);
+    const formData = new FormData();
+    formData.append('file', audioBLOB);
+    const response = await postFetcher(
+      'http://localhost:4444/upload',
+      formData,
+      'multipart'
+    );
+    if (!response.ok) alert('녹음 전송 실패!');
+    else alert('녹음 전송 성공!');
+  };
+
   useEffect(() => {
     () => {
       return playingTrack ? () => playingTrack.unloadAsync() : undefined;
@@ -55,6 +71,7 @@ export default function AudioUploader() {
       <Button title='녹음 시작' onPress={startRecord} />
       <Button title='녹음 중지' onPress={stopRecord} />
       <Button title='녹음 재생' onPress={playRecord} />
+      <Button title='녹음 전송' onPress={uploadRecord} />
     </View>
   );
 }

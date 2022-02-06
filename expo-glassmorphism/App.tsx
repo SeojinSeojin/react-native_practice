@@ -5,8 +5,6 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
-  TouchableOpacity,
 } from 'react-native';
 import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -71,7 +69,6 @@ const styles = StyleSheet.create({
   },
   glassViewInner: {
     width: 320,
-    gap: 16,
     borderRadius: 30,
     padding: 30,
     marginTop: 36,
@@ -91,11 +88,13 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: '#fff',
     lineHeight: 41,
+    marginBottom: 16,
   },
   textSub: {
     color: '#ffffffaf',
     fontSize: 15,
     lineHeight: 20,
+    marginBottom: 16,
   },
   buttonSkip: {
     color: '#ffffff7e',

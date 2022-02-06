@@ -15,7 +15,9 @@ source : https://www.figma.com/community/file/1065705675392663721
 ### 1st Trial : 02/07
 
 **Dependencies**
+
 https://docs.expo.dev/versions/latest/sdk/blur-view/
+
 https://docs.expo.dev/versions/latest/sdk/linear-gradient/
 
 **Result**

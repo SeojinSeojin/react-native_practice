@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { TextInput, Text, View, StyleSheet } from 'react-native';
+import {
+  TextInput,
+  Text,
+  View,
+  StyleSheet,
+  ScrollView,
+  Dimensions,
+} from 'react-native';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import {
   addTodo,
@@ -10,6 +17,7 @@ import {
   getTodoList,
 } from '../controllers/todo.controller';
 import TodoItem from './TodoItem';
+const { height } = Dimensions.get('window');
 
 function TodoList() {
   const [mode, setMode] = useState<'edit' | 'add'>('add');
@@ -74,15 +82,17 @@ function TodoList() {
   return (
     <View style={styles.container}>
       <Text>To Do List</Text>
-      {todoData?.map((todo) => (
-        <TodoItem
-          todo={todo}
-          onEdit={(id: Todo['id']) => setEditMode(id)}
-          onComplete={(id: Todo['id']) => completeTodoMutation.mutate(id)}
-          onDelete={(id: Todo['id']) => deleteTodoMutation.mutate(id)}
-          key={todo.id}
-        />
-      ))}
+      <ScrollView style={styles.todoContainer}>
+        {todoData?.map((todo) => (
+          <TodoItem
+            todo={todo}
+            onEdit={(id: Todo['id']) => setEditMode(id)}
+            onComplete={(id: Todo['id']) => completeTodoMutation.mutate(id)}
+            onDelete={(id: Todo['id']) => deleteTodoMutation.mutate(id)}
+            key={todo.id}
+          />
+        ))}
+      </ScrollView>
       <TextInput
         style={styles.textInput}
         onSubmitEditing={onTextInputSubmit}
@@ -95,9 +105,10 @@ function TodoList() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: height,
     backgroundColor: '#fff',
   },
+  todoContainer: { height: height + 40, paddingBottom: 40 },
   textInput: {
     position: 'absolute',
     bottom: 0,
@@ -105,6 +116,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     width: '100%',
     padding: 20,
+    height: 30,
+    backgroundColor: 'white',
   },
 });
 

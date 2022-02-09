@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   buttonWrapper: { flexDirection: 'row' },
-  completed: { flexDirection: 'row-reverse', backgroundColor: 'yellow' },
+  completed: { flexDirection: 'row-reverse', backgroundColor: 'green' },
   deleted: { flexDirection: 'row-reverse', backgroundColor: 'red' },
 });
 

@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import {
   TextInput,
-  Text,
-  View,
   StyleSheet,
   ScrollView,
+  KeyboardAvoidingView,
+  Platform,
   Dimensions,
+  View,
 } from 'react-native';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import {
@@ -17,7 +18,7 @@ import {
   getTodoList,
 } from '../controllers/todo.controller';
 import TodoItem from './TodoItem';
-const { height } = Dimensions.get('window');
+const { height } = Dimensions.get('screen');
 
 function TodoList() {
   const [mode, setMode] = useState<'edit' | 'add'>('add');
@@ -81,7 +82,6 @@ function TodoList() {
   };
   return (
     <View style={styles.container}>
-      <Text>To Do List</Text>
       <ScrollView style={styles.todoContainer}>
         {todoData?.map((todo) => (
           <TodoItem
@@ -93,31 +93,40 @@ function TodoList() {
           />
         ))}
       </ScrollView>
-      <TextInput
-        style={styles.textInput}
-        onSubmitEditing={onTextInputSubmit}
-        value={text}
-        onChangeText={(text) => setText(text)}
-      />
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      >
+        <TextInput
+          style={styles.textInput}
+          onSubmitEditing={onTextInputSubmit}
+          value={text}
+          onChangeText={(text) => setText(text)}
+        />
+      </KeyboardAvoidingView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    height: height,
-    backgroundColor: '#fff',
+    flex: 1,
   },
-  todoContainer: { height: height + 40, paddingBottom: 40 },
+  todoContainer: {
+    height: height,
+    paddingBottom: 60,
+  },
   textInput: {
-    position: 'absolute',
-    bottom: 0,
     borderColor: 'black',
     borderWidth: 1,
     width: '100%',
     padding: 20,
-    height: 30,
+    height: 60,
     backgroundColor: 'white',
+    color: 'black',
+  },
+  textInputContainer: {
+    position: 'absolute',
+    bottom: 0,
   },
 });
 

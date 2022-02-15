@@ -1,8 +1,17 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Share, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 export default function App() {
   const code = '000ABC';
+  const onSharePressed = () => {
+    try {
+      Share.share({
+        message: `초대 코드는 ${code}입니다.`,
+      });
+    } catch (error) {
+      alert(error);
+    }
+  };
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.safeAreaContainer}>
@@ -19,7 +28,9 @@ export default function App() {
               </Text>
             </View>
           </View>
-          <Text style={styles.btnShare}>초대 코드 공유하기</Text>
+          <TouchableOpacity style={styles.btnShare} onPress={onSharePressed}>
+            <Text style={styles.textButtonShare}>초대 코드 공유하기</Text>
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     </SafeAreaProvider>
@@ -63,6 +74,10 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 14,
     marginTop: 12,
+  },
+  textButtonShare: {
+    color: 'white',
+    textAlign: 'center',
   },
   btnShare: {
     textAlign: 'center',

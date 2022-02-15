@@ -14,4 +14,4 @@
 
 ### 공유 API 관련 레퍼런스
 
-- https://docs.expo.dev/versions/latest/sdk/sharing/
+- https://snack.expo.dev/@aboutreact/react-native-share-api-to-share-text-input-message?session_id=snack-session-ESXWizmjL

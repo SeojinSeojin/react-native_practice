@@ -9,3 +9,5 @@ WhaleDone 서비스를 만들기 위해 필요하다고 느낀 부분들을 공�
 🐜 [Async Storage로 하드웨어 메모리 접근](./async-storage)
 
 🐜 [Share API 사용해보기](./share-api)
+
+🐜 [이미지를 바로 S3 스토리지로 전송](./react-native-s3)

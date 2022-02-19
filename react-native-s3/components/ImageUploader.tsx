@@ -7,13 +7,47 @@ export default function ImageUploader() {
   const [image, setImage] = useState<string | null>(null);
   const getImage = async () => {
     const _image = await ImagePicker.launchImageLibraryAsync({
-      allowsEditing: true,
+      allowsEditing: false,
     });
     if (!_image.cancelled) setImage(_image.uri);
   };
 
   const uploadImage = async () => {
     if (!image) return;
+    try {
+      const fileName = `${new Date().toLocaleString()}.png`;
+      const presignedURLResponse = await fetch(
+        'http://localhost:4444/presigned_url',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+          body: JSON.stringify({
+            fileName,
+          }),
+        }
+      );
+      const { presignedURL } = await presignedURLResponse.json();
+
+      const imageBLOB = dataURItoBLOB(image);
+      const imageFile = new File([imageBLOB], fileName);
+
+      const s3UploadResponse = await fetch(
+        new Request(presignedURL, {
+          method: 'PUT',
+          credentials: 'omit',
+          body: imageFile,
+          headers: new Headers({
+            'Content-Type': 'image/*',
+          }),
+        })
+      );
+      console.log(s3UploadResponse);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const checkCameraPermission = async () => {

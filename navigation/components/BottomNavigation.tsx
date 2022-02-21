@@ -3,6 +3,7 @@ import React from 'react';
 import { Image } from 'react-native';
 import HomeScreen from '../screens/HomeScreen';
 import SearchScreen from '../screens/SearchScreen';
+import { styles } from '../styles/style';
 
 const Tab = createBottomTabNavigator();
 
@@ -16,14 +17,14 @@ function BottomNavigation() {
               return (
                 <Image
                   source={require('../assets/icon-home.png')}
-                  style={{ width: 25, height: 25 }}
+                  style={styles.tabBarIcon}
                 />
               );
             case 'Search':
               return (
                 <Image
                   source={require('../assets/icon-globe.png')}
-                  style={{ width: 25, height: 25 }}
+                  style={styles.tabBarIcon}
                 />
               );
           }

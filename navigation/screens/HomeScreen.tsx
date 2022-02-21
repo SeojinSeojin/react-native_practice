@@ -9,7 +9,7 @@ type homeScreenProp = StackNavigationProp<RootStackParams, 'Home'>;
 function HomeScreen() {
   const navigation = useNavigation<homeScreenProp>();
   return (
-    <View>
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Home Screen</Text>
       <Button title='Setting' onPress={() => navigation.navigate('Setting')} />
     </View>
